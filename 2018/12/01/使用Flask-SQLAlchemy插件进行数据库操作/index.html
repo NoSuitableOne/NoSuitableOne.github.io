@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Flask-SQLAlchemy插件进行数据库操作 | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="依照惯例，本文开头先提供Flask-SQLAlchemy的官方文档地址
+Flask框架之所以强大有一个重要因素是良好的生态系统支持用户对原框架进行扩展，Flask-SQLAlchemy就是一个扩展插件，其作用是帮助用户操作数据库（增、删、改、查、创表、提交事务等等），或者说这是一个ORM插件（O-O">
+  
+
+  
+  
+  <meta name="keywords" content="python,flask">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="使用Flask-SQLAlchemy插件进行数据库操作"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>使用Flask-SQLAlchemy插件进行数据库操作</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/12/01/使用Flask-SQLAlchemy插件进行数据库操作/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-12-01T08:31:18.000Z">
+          2018-12-01
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><em>依照惯例，本文开头先提供<a href="http://flask-sqlalchemy.pocoo.org/2.3" target="_blank" rel="noopener">Flask-SQLAlchemy</a>的官方文档地址</em></p>
+<p><code>Flask</code>框架之所以强大有一个重要因素是良好的生态系统支持用户对原框架进行扩展，<code>Flask-SQLAlchemy</code>就是一个扩展插件，其作用是帮助用户操作数据库（增、删、改、查、创表、提交事务等等），或者说这是一个<code>ORM</code>插件（<code>O</code>-<code>Object</code>、<code>R</code>-<code>Relational</code>、<code>M</code>-<code>Mapping</code>，简言之就是用对象去表达数据结构的插件）。显然，使用<code>Flask-SQLAlchemy</code>最大的好处就是操作不同的数据库时不必关注数据库特异性，一套代码重复利用。</p>
+<h1 id="使用Flask-SQLAlchemy"><a href="#使用Flask-SQLAlchemy" class="headerlink" title="使用Flask-SQLAlchemy"></a>使用<code>Flask-SQLAlchemy</code></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask</span><br><span class="line">from flask_sqlalchemy import SQLAlchemy</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">db = SQLAlchemy(app)</span><br></pre></td></tr></table></figure>
+<p>引入<code>flask_sqlalchemy</code>插件，调用<code>SQLAlchemy</code>和<code>flask app</code>绑定</p>
+<blockquote>
+<p>调用<code>SQLAlchemy</code>是因为这是<code>flask_sqlalchemy</code>提供的一个<code>__init__</code>函数，源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;#: Default query class used by :attr:`Model.query` and other queries.</span><br><span class="line">&gt;    #: Customize this by passing ``query_class`` to :func:`SQLAlchemy`.</span><br><span class="line">&gt;    #: Defaults to :class:`BaseQuery`.</span><br><span class="line">&gt;    Query = None</span><br><span class="line">&gt;</span><br><span class="line">&gt;   def __init__(self, app=None, use_native_unicode=True, session_options=None,</span><br><span class="line">&gt;                 metadata=None, query_class=BaseQuery, model_class=Model):</span><br><span class="line">&gt;</span><br><span class="line">&gt;        self.use_native_unicode = use_native_unicode</span><br><span class="line">&gt;        self.Query = query_class</span><br><span class="line">&gt;        self.session = self.create_scoped_session(session_options)</span><br><span class="line">&gt;        self.Model = self.make_declarative_base(model_class, metadata)</span><br><span class="line">&gt;        self._engine_lock = Lock()</span><br><span class="line">&gt;        self.app = app</span><br><span class="line">&gt;        _include_sqlalchemy(self, query_class)</span><br><span class="line">&gt;</span><br><span class="line">&gt;        if app is not None:</span><br><span class="line">&gt;            self.init_app(app)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>PS：通过看源码应该能发现调用<code>SQLAlchemy</code>时<code>app</code>是可以不用传入的，可以初始化时再调用<code>init_app</code>传入<code>app</code>，这特别适用于工厂函数创建<code>app</code>的情况</p>
+</blockquote>
+<h1 id="使用Flask-SQLAlchemy创建表"><a href="#使用Flask-SQLAlchemy创建表" class="headerlink" title="使用Flask-SQLAlchemy创建表"></a>使用<code>Flask-SQLAlchemy</code>创建表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class User(db.Model):</span><br><span class="line">    __tablename__ = &apos;users&apos;</span><br><span class="line">    id = db.Column(db.Integer, primary_key=True)</span><br><span class="line">    username = db.Column(db.String(80), unique=True, nullable=False)</span><br><span class="line">    email = db.Column(db.String(120), unique=True, nullable=False)</span><br><span class="line"></span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &apos;&lt;User %r&gt;&apos; % self.username</span><br></pre></td></tr></table></figure>
+<p>核心是创建一个类继承<code>Model</code>属性（<code>Model</code>属性是啥，可以按照上面的源码去查看）<br>这里讲一下代码含义：</p>
+<ul>
+<li><code>__tablename__ = &#39;users&#39;</code>是给表命名（这句也可以省略，但是一般表名还是推荐自己取）</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id = db.Column(db.Integer, primary_key=True)</span><br><span class="line">username = db.Column(db.String(80), unique=True, nullable=False)</span><br><span class="line">email = db.Column(db.String(120), unique=True, nullable=False)</span><br></pre></td></tr></table></figure>
+<p> 这部分是添加表的字段，以及相应字段的属性</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def __repr__(self):</span><br><span class="line">    return &apos;&lt;User %r&gt;&apos; % self.username</span><br></pre></td></tr></table></figure>
+<p> 这两行是<code>python</code>对象的<code>__repr__</code>方法，重写是为了方便程序员查看对象，不属于<code>flask-sqlalchemy</code>提供的特殊内容</p>
+</li>
+</ul>
+<p>当然，这是最简单的数据表，实际操作中肯定会涉及到数据表的互相关联。这一部分实际是数据库的基础知识而不是<code>Flask-SQLAlchemy</code>的独特内容。简单提一下<code>Flask-SQLAlchemy</code>是有API<code>ForeignKey</code>、<code>relationship</code>帮助我们创表时关联数据表的。具体内容可以查看上面的官方文档。</p>
+<h1 id="使用Flask-SQLAlchemy进行增、删、改、查"><a href="#使用Flask-SQLAlchemy进行增、删、改、查" class="headerlink" title="使用Flask-SQLAlchemy进行增、删、改、查"></a>使用<code>Flask-SQLAlchemy</code>进行增、删、改、查</h1><p>做数据库基本操作必然涉及到数据库事务，这里先说如何使用<code>SQLAlchemy</code>提交事务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.session.add(xxx)</span><br><span class="line">db.session.delete(xxx)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure></p>
+<p><code>session</code> API中带有<code>add</code>、<code>delete</code>等方法，直接调用即可，最后再<code>commit</code>。当然，如同写<code>SQL</code>语句一样，针对不同的操作还有更多API，例如<code>session.add_all()</code>、<code>session.rollback()</code>等等，这里不详述了。</p>
+<p>前面说了相关的API，现在总结一下增、删、改、查具体操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from yourapp import User</span><br><span class="line">me = User(&apos;admin&apos;, &apos;admin@example.com&apos;)</span><br><span class="line">db.session.add(me)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure></p>
+<p>以添加一条记录为例，所有的执行都是遵循三个步骤</p>
+<ul>
+<li>创建一个python对象（这个对象是相应数据表类的一个实例，也就是相应数据表的一条记录）</li>
+<li>调用<code>session</code>中的API</li>
+<li>提交事务</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.session.delete(me)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure>
+<p>删除一条记录也是类似的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin = Role.query.filter_by(name=&apos;Admin&apos;).first()</span><br></pre></td></tr></table></figure>
+<p>查询表中某条记录可以直接调用对象的<code>query</code>方法，相当于<code>SELECT</code>语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin = Role.query.filter_by(name=&apos;Admin&apos;).first()</span><br><span class="line">if admin is not None:</span><br><span class="line">    admin.name = &apos;admin&apos;</span><br><span class="line">    db.session.add(admin)</span><br><span class="line">    db.session.commit()</span><br></pre></td></tr></table></figure>
+<p>修改记录可以综合查找和添加两步：</p>
+<ul>
+<li>查出记录</li>
+<li>修改</li>
+<li>提交</li>
+</ul>
+<p>至此，使用<code>Flask-SQLALchemy</code>进行数据库基本操作已经都介绍完了，复杂的用法请查看开头的官方文档。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/flask入门/">flask入门</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/python/">python</a><a href="/tags/flask/">flask</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

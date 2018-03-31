@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JS基础系列（关于对象由浅及深的知识） | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="对象的基础知识对象就是Object，js中除了以下基本类型：String/Boolean/Number/Null/Undefined/Symbol，其余的就都是对象Object了。
+关于对象最最基础的知识有以下几点：
+
+定义一个对象： 
+12// 最简单的对象const obj = &amp;#123;&amp;#">
+  
+
+  
+  
+  <meta name="keywords" content="JS">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="JS基础系列（关于对象由浅及深的知识）"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>JS基础系列（关于对象由浅及深的知识）</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/03/25/JS基础系列（关于对象由浅及深的知识）/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-03-25T07:40:45.000Z">
+          2018-03-25
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="对象的基础知识"><a href="#对象的基础知识" class="headerlink" title="对象的基础知识"></a>对象的基础知识</h1><p>对象就是<code>Object</code>，<code>js</code>中除了以下基本类型：<code>String</code>/<code>Boolean</code>/<code>Number</code>/<code>Null</code>/<code>Undefined</code>/<code>Symbol</code>，其余的就都是对象<code>Object</code>了。</p>
+<p>关于对象最最基础的知识有以下几点：</p>
+<ul>
+<li><p>定义一个对象： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 最简单的对象</span><br><span class="line">const obj = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象里的运算符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 对象中最简单的运算符</span><br><span class="line">const obj = &#123;</span><br><span class="line">  simple: &quot;simple&quot;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(obj.simple);</span><br><span class="line">console.log(obj[&quot;simple&quot;]);</span><br></pre></td></tr></table></figure>
+<p>可见， <code>.</code>运算符和<code>[“attribute_name”]</code>是等价的，这也是获取对象属性的基本方法。</p>
+</li>
+<li><p>对象中的属性和方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  simple: &quot;simple&quot;，</span><br><span class="line">  fn: function()&#123;&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">obj.prototype = protoFn;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>定义对象中的属性和方法都是很简单的，至于这儿为啥有<code>prototype</code>就涉及到另一个进阶知识点原型链</p>
+<h1 id="对象的进阶知识"><a href="#对象的进阶知识" class="headerlink" title="对象的进阶知识"></a>对象的进阶知识</h1><ul>
+<li><p>关于<code>OOP</code><br><code>OOP</code>就是面向对象编程（<code>Object Oriented Programming</code>），既然说了一大堆对象肯定要说到这个对象的实际应用。这里我们不谈面向对象编程，只谈<code>js</code>中面向对象编程的实现和特殊点。<br>先说一个结论，<strong><code>js</code>是可以实现面向对象编程的</strong>。就是<code>js</code>中对象的一些属性支撑了这个结论。</p>
+<ul>
+<li><p>特性1：<br>语法支持创建一个对象作为”类”，然后再创建一个它的”实例”(严谨的表述是，<code>js</code>语法支持通过原型对象创造实例对象)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Obj () &#123;</span><br><span class="line">  simple: &quot;simple&quot;，</span><br><span class="line">  fn: function()&#123;&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">const obj1 = new Obj();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const Obj = &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br><span class="line">const obj2 = Object.create(Obj);</span><br></pre></td></tr></table></figure>
+<p>实例自动获得类的属性、方法。上文提到方法可以定义在<code>prototype</code>中，也可以直接定义在对象中，那么这有什么区别呢？区别很简单，<code>prototype</code>中的方法是原型链中的方法，直接定义在对象中的不是原型链中的方法，体现在实例对象上的差异有二： </p>
+<pre><code>1. 直接定义在对象中的方法每个实例都要开辟新内存空间存储该方法，`prototype`中的方法是通过指针指向引用获得；
+2. 由于1，所以直接定义在对象中的方法对于每个实例对象而言是独立的，修改实例对象上的方法各实例互不影响，`prototype`中的方法若被修改会影响所有实例对象；
+</code></pre><p>简言之，直接定义在对象上的方法可以简单理解为对象的普通属性，只不过这个属性的值是一个方法（<code>Function</code>），另一种<code>prototype</code>中的方法可以再深入解析一下<strong>原型链</strong>来了解。<br><code>js</code>的原型链顾名思义是一条链，链接这条链的是<code>__proto__</code>属性，所有对象都有<code>__proto__</code>属性而且这个属性扮演整个链中的指针角色。举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Person () &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br><span class="line">const a = new Person();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a.__proto__ === Person.prototype</span><br><span class="line">Person.prototype.__proto__ === Object.prototype</span><br><span class="line">Object.prototype.__proto__ === null  </span><br><span class="line"></span><br><span class="line">// 请注意，上面那一串才是能连起来的，下面这个不是连接这个链的</span><br><span class="line">Person.__proto__ === Function.prototype</span><br><span class="line"></span><br><span class="line">// 构造函数的位置</span><br><span class="line">a.constructor === Person</span><br><span class="line">// prototype 属性包含（指向）一个对象，在这个对象中定义了需要被继承的成员</span><br><span class="line">Person.prototype === &#123; &quot;constructor&quot;: Person &#125;;</span><br></pre></td></tr></table></figure>
+<p>上面还提到一种创建实例对象的方法<code>Object.create</code>，这里就是把实例对象的<code>__proto__</code>指向<code>Object.create</code>接收的参数，以上面的例子而言<code>obj2.__proto__ === Obj</code>。</p>
+</li>
+<li>特性2：<br>语法支持一个对象继承另一个对象<br><em>prototype 属性：继承成员被定义的地方</em>，这是<code>js</code>支持继承的核心<br>比如定义一个类，然后需要继承<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 通过Object.create继承</span><br><span class="line">const obj1 = &#123;&#125;;</span><br><span class="line">const obj2 = Object.create(obj1);</span><br><span class="line"></span><br><span class="line">// 通过调用constructor函数继承</span><br><span class="line">const obj3 = obj1.__proto__.constructor();</span><br><span class="line"></span><br><span class="line">//定义新的构造函数</span><br><span class="line">function obj4() &#123;</span><br><span class="line">    Obj.call(this, ...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="ES6中的语法"><a href="#ES6中的语法" class="headerlink" title="ES6中的语法"></a>ES6中的语法</h1><ul>
+<li><p>对象简洁表示法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function f(x, y) &#123;</span><br><span class="line">  return &#123;x, y&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象相同判断：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.is(obj1, obj2);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象的和合并：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.assign(target, source);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象的遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 返回对象（不含继承的）所有可遍历（enumerable）属性的键值</span><br><span class="line">const obj = &#123;</span><br><span class="line">  &quot;foo&quot;: 111,</span><br><span class="line">  &quot;bar&quot;: &quot;barstr&quot;,</span><br><span class="line">&#125;</span><br><span class="line">Object.values(obj);</span><br><span class="line">// [111, &quot;barstr&quot;]</span><br><span class="line"></span><br><span class="line">  const obj = &#123;</span><br><span class="line">  &quot;foo&quot;: 111,</span><br><span class="line">  &quot;bar&quot;: &quot;barstr&quot;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值对数组</span><br><span class="line">Object.entries(obj);</span><br><span class="line">// [[&quot;foo&quot;, 111], [&quot;bar&quot;, &quot;barstr&quot;]]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考：<br><a href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects" target="_blank" rel="noopener">MDN JavaScript 对象入门</a><br><a href="http://es6.ruanyifeng.com/#docs/object" target="_blank" rel="noopener">阮一峰 ECMAScript 6 入门</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/JS基础系列/">JS基础系列</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/JS/">JS</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

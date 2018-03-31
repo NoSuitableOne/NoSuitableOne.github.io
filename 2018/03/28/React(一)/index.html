@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React(part1) | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="React是个啥？这篇文章所有问题的标准答案：React官网，所有答案都在这儿。这篇文章简要地讲几个关键概念，循序渐进地理解这些概念就算是认识React了。
+Step1:用React实现一个世界通用入门标准 Hello World核心代码都在js(jsx)文件里实现。为什么这么做？标准答案还是在上面">
+  
+
+  
+  
+  <meta name="keywords" content="JS,react">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="React(part1)"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>React(part1)</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/03/28/React(一)/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-03-28T13:31:25.000Z">
+          2018-03-28
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>React是个啥？<a href="https://facebook.github.io/react/" target="_blank" rel="noopener">这篇文章所有问题的标准答案：React官网</a>，<strong>所有答案都在这儿</strong>。<br>这篇文章简要地讲几个关键概念，循序渐进地理解这些概念就算是认识React了。</p>
+<h1 id="Step1"><a href="#Step1" class="headerlink" title="Step1:"></a>Step1:</h1><p>用React实现一个世界通用入门标准 <code>Hello World</code><br>核心代码都在<code>js</code>(<code>jsx</code>)文件里实现。为什么这么做？标准答案还是在上面的链接里</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1915742-d6e7ee9b6868a03f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hello world"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ele = &lt;div&gt;Hello World&lt;/div&gt;;</span><br><span class="line">ReactDom.render (</span><br><span class="line">    ele,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><code>html</code>部分特别简单，关键语句只有一句（类比AngularJS的概念，对应<code>&lt;div ng-app=&quot;app&quot;&gt;&lt;/div&gt;</code>），所以下面就忽略<code>html</code>部分了<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<h1 id="Step2"><a href="#Step2" class="headerlink" title="Step2:"></a>Step2:</h1><p>使用React创建组件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1915742-bd936a14258db4ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="React组件"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShoppingList</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    render () &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">'shopping-list'</span>&gt;</span><br><span class="line">                &lt;h1&gt;Shopping List <span class="keyword">for</span> &#123;<span class="keyword">this</span>.props.name&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">                &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;li&gt;Instagram&lt;/</span>li&gt;</span><br><span class="line">                    &lt;li&gt;WahtsApp&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;li&gt;Oculus&lt;/</span>li&gt;</span><br><span class="line">                &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者可以把大组件再拆分，实际上React也确实推荐我们这么做：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Title</span> (<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;h1&gt;Shopping List <span class="keyword">for</span> &#123;props.name&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">function ListItem (props) &#123;</span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">        &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">            &#123;</span></span><br><span class="line"><span class="regexp">                props.lists.map(</span></span><br><span class="line"><span class="regexp">                    (item) =&gt; &#123;return (&lt;li&gt;&#123;item&#125;&lt;/</span>li&gt;)&#125;</span><br><span class="line">                )</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">class ShoppingList extends React.Component &#123;</span></span><br><span class="line"><span class="regexp">    render () &#123;</span></span><br><span class="line"><span class="regexp">        const lists = ['Instagram', 'WahtsApp', 'Oculus'];</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        return (</span></span><br><span class="line"><span class="regexp">            &lt;div className='shopping-list'&gt;</span></span><br><span class="line"><span class="regexp">                &lt;Title name='Mark' /</span>&gt;</span><br><span class="line">                &lt;ListItem lists=&#123;lists&#125; /&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里说明一下，通过观察代码可以看出，我们使用了两种不同的方式创建一个组件<code>class xxx extends React.Component</code>、<code>function xxx</code>，此外还有一种方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xxx = React.createClass(&#123;</span><br><span class="line">    ...</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ...;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里着重讲一下前两种方法，也就是我们上面举例中采用的方法</p>
+<ul>
+<li><code>class xxx extends React.Component</code>：这里继承了<code>React.Component</code>，非常容易理解，创建的<code>xxx</code>组件将实现并扩展<code>React.Component</code>类中定义的方法。只需要创建这个类的实例即可使用组件。同时我们还可以在构造方法（<code>constructor</code>）中定义组件的状态（<code>state</code>，关于<code>state</code>的内容我们稍后再谈）</li>
+<li><code>function xxx</code>：这种方法是非常适合创建无状态组件的，所谓的无状态组件就是组件本身没有状态，上面例子里三个组件都属于无状态组件。这种方法只要执行函数即可返回组件，但是这样创建组件无法保存组件自己的状态。<br>（还有第三种方法<code>var xxx = React.createClass</code>。这种方法是早期版本使用的方法，历史的车轮已经滚滚向前，可以放弃这种语法，React也已经不建议使用这种方法）<h1 id="Step3"><a href="#Step3" class="headerlink" title="Step3:"></a>Step3:</h1>给组件添加事件<br><code>js</code>最原始的作用就是在客户端和用户交互，所以<code>react</code>必然也支持事件。<br>最简单例子<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Comp extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div onClick=&#123;() =&gt; (alert(&apos;click!&apos;))&#125;&gt;click&lt;/div&gt; // 直接在元素上绑定事件</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>需要注意的是这里的<code>this</code><br>很多情况，使用的事件回调函数是这个类中定义的一个方法，此时类方法的<code>this</code>是没有绑定的，需要我们手动绑定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Comp extends React.Component &#123;</span><br><span class="line">  constructor () &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.clickHandler = this.clickHandler.bind(this);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  clickHandler() &#123;</span><br><span class="line">    alert(&quot;click!&quot;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div onClick=&#123;this.clickHandler&#125;&gt;click&lt;/div&gt; </span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者更简单的方法是使用箭头函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Comp extends React.Component &#123;</span><br><span class="line">  clickHandler() &#123;</span><br><span class="line">    alert(&quot;click!&quot;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div onClick=&#123;() =&gt; &#123;this.clickHandler()&#125;&#125;&gt;click&lt;/div&gt; </span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Step4"><a href="#Step4" class="headerlink" title="Step4:"></a>Step4:</h1><p>状态管理<br>前文提到有两种组件创建方式，其中一种组件是包含状态（<code>state</code>）的，另一种组件自身没有状态（<code>stateless</code>）<br>先看这个状态是什么<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Comp extends React.Component &#123;</span><br><span class="line">  constructor () &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.state = &#123;&apos;test&apos;: &apos;no&apos;&#125;;</span><br><span class="line">    this.clickHandler = this.clickHandler.bind(this);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  clickHandler() &#123;</span><br><span class="line">    this.setState(&#123;&apos;test&apos;: &apos;yes&apos;&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div onClick=&#123;() =&gt; &#123;this.clickHandler()&#125;&#125;&gt;&#123;this.state.test&#125;&lt;/div&gt; // 此处的test值是组件内维护的一个状态</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>做个比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Comp extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;&#123;this.props.test&#125;&lt;/div&gt; // 此处的test值是组件从外部获取的属性</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要在使用组件时从外部传入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function ele() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Comp test=&apos;props here&apos; /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDom.render (</span><br><span class="line">    &lt;ele /&gt;,</span><br><span class="line">    document.getElementById(&apos;root&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>这里我们已经清晰了组件属性和状态的来源区别<br>至此，就可以解答上文的一个问题，即函数式组件也可以传入<code>props</code>（外部传入的值可以以参数形式传入）但不能含有<code>state</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Comp(props) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &#123;props.xxx&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此处需要强调一个重点：如果属性（<code>props</code>）和状态（<code>state</code>）仅仅只是来源不同那意义不大，更核心的是<strong>状态（<code>state</code>）由组件内部维护，而属性（<code>props</code>）只能由外部传入不可在组件内部更改</strong>（当然，组件从外部接收属性，转化成内部状态后再维护修改是完全ok的）</p>
+<h1 id="Step5："><a href="#Step5：" class="headerlink" title="Step5："></a>Step5：</h1><p>理解组件的生命周期<br>上面的类组件中我们只使用了<code>render</code>和<code>constructor</code>方法。其他还有好多方法可以在组件的生命周期中起作用。</p>
+<p>Mounting(装载)</p>
+<ul>
+<li><code>constructor</code><br>在组件被装载前被调用，可以接收<code>props</code>、初始化<code>state</code>和绑定方法</li>
+<li><code>componentWillMount</code><br>在组件装载之前调用，发生在<code>render</code>之前，可以看出这个时间节点和<code>constructor</code>没有本质区别，这个钩子函数最大的意义是服务器渲染场景下使用</li>
+<li><code>render</code><br>在这里决定渲染什么样的组件</li>
+<li><code>componentDidMount</code><br>  组件装载之后被调用，此时浏览器还没有正式渲染，适合在这里订阅事件、发送网络请求。</li>
+</ul>
+<p>Updating(更新)</p>
+<ul>
+<li><code>componentWillReceiveProps(nextProps)</code><br>组件接收新<code>props</code>时会调用此方法，一般在此处监听新<code>props</code>以便更新<code>state</code></li>
+<li><code>shouldComponentUpdate</code><br>组件<code>state</code>更新和接受<code>props</code>时会<code>update</code>组件，如果在这个函数中返回false，那么<code>componentWillUpdate</code>、<code>render</code>和<code>componentDidUpdate</code>方法都不会被执行。通常情况下不应该调用这个方法改变<code>react</code>的默认行为</li>
+<li><p><code>componentWillUpdate</code></p>
+</li>
+<li><p><code>render</code></p>
+</li>
+<li><code>componentDidUpdate</code></li>
+</ul>
+<p>Unmounting(卸载)</p>
+<ul>
+<li><code>componentWillUnmount</code></li>
+</ul>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/前端框架/">前端框架</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/JS/">JS</a><a href="/tags/react/">react</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

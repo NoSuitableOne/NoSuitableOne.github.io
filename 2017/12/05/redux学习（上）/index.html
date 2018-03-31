@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>redux学习（上） | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="依照惯例，开头先放出redux中文文档地址
+使用react当然要配套学习redux，本文就对redux学习进行一个总结。
+redux的作用：简言之就是一整套框架帮助管理状态（state），至于状态管理的最佳实践这应该是另一个很大的话题了，这里就不多讨论了，对于初次使用redux的用户而言最简单的建议">
+  
+
+  
+  
+  <meta name="keywords" content="JS,react">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="redux学习（上）"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>redux学习（上）</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2017/12/05/redux学习（上）/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-12-05T08:20:45.000Z">
+          2017-12-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><em>依照惯例，开头先放出<a href="http://cn.redux.js.org/index.html" target="_blank" rel="noopener">redux中文文档地址</a></em></p>
+<p>使用<code>react</code>当然要配套学习<code>redux</code>，本文就对<code>redux</code>学习进行一个总结。</p>
+<p>redux的作用：简言之就是一整套框架帮助管理状态（<code>state</code>），至于状态管理的最佳实践这应该是另一个很大的话题了，这里就不多讨论了，对于初次使用<code>redux</code>的用户而言最简单的建议就是“<strong>先接受框架提供的方式，当你觉得完全理解了这些后再考虑按自己的思路优化、改进</strong>”。</p>
+<h1 id="redux三大基础概念"><a href="#redux三大基础概念" class="headerlink" title="redux三大基础概念"></a><code>redux</code>三大基础概念</h1><p>这里我们改变一下文档的介绍顺序（文档可能是按首字母排序的），我按照我认为比较容易理解的思路叙述一遍。</p>
+<h2 id="Store"><a href="#Store" class="headerlink" title="Store"></a><code>Store</code></h2><p>首先，使用<code>redux</code>管理状态（<code>state</code>），那么<code>state</code>到底放在哪儿维护呢？所有的<code>state</code>（<code>state</code>树）都放在<code>store</code>中，而且是一个单一的<code>store</code>。<br>创建<code>store</code>可以通过<code>redux</code>提供的<code>API createStore</code></p>
+<blockquote>
+<p>createStore(reducer, [preloadedState], enhancer)<br><code>reducer（Function）</code>：接收两个参数，分别是当前<code>state树</code>和要处理的<code>action</code><br><code>[preloadedState] (any)</code>：可选参数，给定初始<code>state</code><br><code>enhancer(Function)</code>：返回的还是<code>store creator</code> </p>
+</blockquote>
+<blockquote>
+<p>例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; import &#123;createStore&#125; from &apos;redux&apos;;</span><br><span class="line">&gt; import  todos from &apos;./reducers&apos;; </span><br><span class="line">&gt; let store = createStore(todos, [&apos;use Redux&apos;]);</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p><code>store</code>提供几个<code>API</code>，让我们操作<code>state</code></p>
+<blockquote>
+<p><code>getState()</code>：获取<code>state</code><br><code>dispatch(action)</code>：更新<code>state</code><br><code>subscribe(listener)</code>：注册监听器<br><code>subscribe(listener)</code>：返回的函数注销监听器</p>
+</blockquote>
+<p>PS：请特别注意这个函数接收的第一个参数是<code>reducer</code>，意味着创建一个<code>store</code>我们必须提供的是<code>reducer</code></p>
+<h2 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a><code>Reducer</code></h2><p><code>reducer</code>是一个纯函数，接收旧的 <code>state</code> 和 <code>action</code>，返回新的 <code>state</code>。</p>
+<blockquote>
+<p>(previousState, action) =&gt; newState</p>
+</blockquote>
+<p>简单地阐述一下，<code>reducer</code>函数的奥义就是传入一个<code>state</code>然后根据<code>action</code>来返回新的<code>state</code>。<br><strong>有一个要点，返回的<code>state</code>不是通过修改原<code>state</code>得到的，需要返回的<code>state</code>应该是在副本上修改的结果。</strong></p>
+<p>另外，<code>reducer</code>可以拆分，最推荐的做法就是创建小的<code>reducer</code>，然后通过<code>combineReducers()</code>把小<code>reducer</code>合并。</p>
+<h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a><code>Action</code></h2><p><code>action</code> 本质上是 <code>JavaScript</code> 普通对象。<br><code>action</code>中会有一个<code>type</code>属性，作用就是触发特定的<code>action</code>。</p>
+<blockquote>
+<p>例子：<br>最简单的<code>action</code>可以只定义一个字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; const action = &apos;start&apos;;</span><br><span class="line">&gt; ``` </span><br><span class="line">&gt; 常见一点的会是一个对象</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>{<br> type: TOGGLE_TODO,<br> index: 5<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; 还有`action`创建函数，返回一个`action`对象</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>function addTodo(text) {<br>    return {<br>       type: ADD<br>       text<br>   }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`action`创建完成后可以绑定给一个函数，后续就可以直接调用这个函数</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>const boundDispatchAddTodo = (text) =&gt; {dispatch(addTodo(text))};<br>···<br>boundDispatchAddTodo(text);<br><code>`</code><br><em>（未完待续）</em></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/前端框架/">前端框架</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/JS/">JS</a><a href="/tags/react/">react</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

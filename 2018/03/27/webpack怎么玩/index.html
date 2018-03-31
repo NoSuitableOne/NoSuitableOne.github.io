@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>webpack怎么玩 | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="webpack是什么？webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)
+为什么要用webpackwebpack可以帮助前端工程实现打包、工程化（分离第三方库和业务代码、给静态资源加hash、转码图片资源等），前端工程越简单越不需要这些打包工具">
+  
+
+  
+  
+  <meta name="keywords" content="tools">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="webpack怎么玩"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>webpack怎么玩</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/03/27/webpack怎么玩/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-03-27T14:22:51.000Z">
+          2018-03-27
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="webpack是什么？"><a href="#webpack是什么？" class="headerlink" title="webpack是什么？"></a>webpack是什么？</h1><p>webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)</p>
+<h1 id="为什么要用webpack"><a href="#为什么要用webpack" class="headerlink" title="为什么要用webpack"></a>为什么要用<code>webpack</code></h1><p><code>webpack</code>可以帮助前端工程实现打包、工程化（分离第三方库和业务代码、给静态资源加hash、转码图片资源等），前端工程越简单越不需要这些打包工具，前端工程越复杂这些工具作用越明显。</p>
+<h1 id="菜鸟怎么学习webpack？"><a href="#菜鸟怎么学习webpack？" class="headerlink" title="菜鸟怎么学习webpack？"></a>菜鸟怎么学习<code>webpack</code>？</h1><p><code>webpack</code>问题的正确答案获取地址：<a href="https://www.webpackjs.com" target="_blank" rel="noopener">webpack中文网</a></p>
+<h1 id="webpack怎么安装？"><a href="#webpack怎么安装？" class="headerlink" title="webpack怎么安装？"></a><code>webpack</code>怎么安装？</h1><p>这本身不应该是一个问题，但是由于<code>webpack4</code>版本开始<code>webpack-cli</code>工具被独立到另一个npm包中，所以需要全局安装<code>webpack-cli</code>（不全局安装<code>webpack-cli</code>当然也可以，运行时候添加包的全路径或者把包路径写入环境变量都可以，这是<code>node</code>基础知识）。</p>
+<h1 id="webpack最基本的概念是啥？"><a href="#webpack最基本的概念是啥？" class="headerlink" title="webpack最基本的概念是啥？"></a><code>webpack</code>最基本的概念是啥？</h1><ul>
+<li>入口</li>
+<li>出口</li>
+<li>loader</li>
+<li>插件</li>
+</ul>
+<h1 id="webpack怎么配置？在哪儿配置？"><a href="#webpack怎么配置？在哪儿配置？" class="headerlink" title="webpack怎么配置？在哪儿配置？"></a><code>webpack</code>怎么配置？在哪儿配置？</h1><p><code>webpack</code>的配置应该是一个<code>js</code>对象，这个对象中包含<code>webpack</code>所需配置<br><code>webpack</code>配置应该写在一个<code>js</code>文件中，通过这个文件获取到配置对象</p>
+<h1 id="最简单的webpack配置文件示例"><a href="#最简单的webpack配置文件示例" class="headerlink" title="最简单的webpack配置文件示例"></a>最简单的webpack配置文件示例</h1><p><code>webpack.config.js</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./foo.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">    filename: &apos;foo.bundle.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="webpack的使用解析"><a href="#webpack的使用解析" class="headerlink" title="webpack的使用解析"></a><code>webpack</code>的使用解析</h1><p>以一个最简单的文件结构做例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- dist</span><br><span class="line">  -- index.html</span><br><span class="line">-- src</span><br><span class="line">  -- index.js</span><br><span class="line">package.json</span><br><span class="line">webpack.config.js</span><br></pre></td></tr></table></figure></p>
+<p><code>webpack</code>的配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &apos;./src/index.js&apos;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">        filename: &apos;bundle.js&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这是简单使用场景的基础，对应不同场景，只需要在这个基础上稍加修改即可。</p>
+<ul>
+<li><p>引入css（less/sass…）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/index.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">      path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">      filename: &apos;bundle.js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/, </span><br><span class="line">        use: [</span><br><span class="line">          &apos;style-loader&apos;, </span><br><span class="line">          &apos;css-loader&apos;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>处理图片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/index.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">    filename: &apos;bundle.js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">         test: /\.(png|svg|jpg|gif)$/,</span><br><span class="line">         use: [</span><br><span class="line">           &apos;file-loader&apos;</span><br><span class="line">         ]</span><br><span class="line">       &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以上情形都只需要用到<code>webpack</code>的loader即可，被引用的文件（css、图片）都会被加载到<code>js</code>中</p>
+<ul>
+<li><p>每次<code>build</code>可以清空原目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">const CleanWebpackPlugin = require(&apos;clean-webpack-plugin&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/index.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">    filename: &apos;bundle.js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: /\.css$/,</span><br><span class="line">      use: [</span><br><span class="line">        &apos;style-loader&apos;,</span><br><span class="line">        &apos;css-loader&apos;</span><br><span class="line">       ]</span><br><span class="line">     &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new CleanWebpackPlugin([&apos;dist&apos;])</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>热更新<br>配置文件中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">  contentBase: &apos;./dist&apos;,</span><br><span class="line">  hot: true</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>缓存设置</p>
+</li>
+</ul>
+<ol>
+<li><p>加入文件hash值，匹配修改过的文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">const CleanWebpackPlugin = require(&apos;clean-webpack-plugin&apos;);</span><br><span class="line">const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/index.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">    filename: &apos;[name].[chunkhash].js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">        use: [</span><br><span class="line">          &apos;style-loader&apos;,</span><br><span class="line">          &apos;css-loader&apos;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new CleanWebpackPlugin([&apos;dist&apos;]),</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      title: &apos;Caching&apos;  </span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: &apos;./dist&apos;,</span><br><span class="line">    hot: true</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单独提取第三方库<br>config中加入以下配置(<code>webpack.optimize.CommonsChunkPlugin</code>在<code>webpack 4.0版本后被移除了</code>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">entry: &#123;</span><br><span class="line">  main: &apos;./src/index.js&apos;,</span><br><span class="line">  vendor: [</span><br><span class="line">    &apos;module_name&apos;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br><span class="line">optimization: &#123;</span><br><span class="line">  splitChunks: &#123;</span><br><span class="line">    chunks: &apos;initial&apos;,</span><br><span class="line">    minSize: 0,</span><br><span class="line">    minChunks: 1,</span><br><span class="line">    cacheGroups: &#123;</span><br><span class="line">      vendor: &#123;</span><br><span class="line">        chunks: &apos;initial&apos;,</span><br><span class="line">        test: /module_name/,</span><br><span class="line">        name: &apos;vendor&apos;,</span><br><span class="line">        enforce: true</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/工具使用/">工具使用</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/tools/">tools</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
