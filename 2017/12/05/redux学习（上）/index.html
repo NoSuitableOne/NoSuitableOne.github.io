@@ -17,7 +17,7 @@ redux的作用：简言之就是一整套框架帮助管理状态（state），�
 
   
   
-  <meta name="keywords" content="JS,react">
+  <meta name="keywords" content="react,JS">
   
 
   <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
@@ -90,7 +90,7 @@ redux的作用：简言之就是一整套框架帮助管理状态（state），�
         <p><em>依照惯例，开头先放出<a href="http://cn.redux.js.org/index.html" target="_blank" rel="noopener">redux中文文档地址</a></em></p>
 <p>使用<code>react</code>当然要配套学习<code>redux</code>，本文就对<code>redux</code>学习进行一个总结。</p>
 <p>redux的作用：简言之就是一整套框架帮助管理状态（<code>state</code>），至于状态管理的最佳实践这应该是另一个很大的话题了，这里就不多讨论了，对于初次使用<code>redux</code>的用户而言最简单的建议就是“<strong>先接受框架提供的方式，当你觉得完全理解了这些后再考虑按自己的思路优化、改进</strong>”。</p>
-<h1 id="redux三大基础概念"><a href="#redux三大基础概念" class="headerlink" title="redux三大基础概念"></a><code>redux</code>三大基础概念</h1><p>这里我们改变一下文档的介绍顺序（文档可能是按首字母排序的），我按照我认为比较容易理解的思路叙述一遍。</p>
+<h1 id="redux三大基础概念"><a href="#redux三大基础概念" class="headerlink" title="redux三大基础概念"></a><code>redux</code>三大基础概念</h1><p>这里我们改变一下文档的介绍顺序（文档可能是按首字母排序的），我按照比较容易理解的思路叙述一遍。</p>
 <h2 id="Store"><a href="#Store" class="headerlink" title="Store"></a><code>Store</code></h2><p>首先，使用<code>redux</code>管理状态（<code>state</code>），那么<code>state</code>到底放在哪儿维护呢？所有的<code>state</code>（<code>state</code>树）都放在<code>store</code>中，而且是一个单一的<code>store</code>。<br>创建<code>store</code>可以通过<code>redux</code>提供的<code>API createStore</code></p>
 <blockquote>
 <p>createStore(reducer, [preloadedState], enhancer)<br><code>reducer（Function）</code>：接收两个参数，分别是当前<code>state树</code>和要处理的<code>action</code><br><code>[preloadedState] (any)</code>：可选参数，给定初始<code>state</code><br><code>enhancer(Function)</code>：返回的还是<code>store creator</code> </p>
@@ -143,7 +143,7 @@ redux的作用：简言之就是一整套框架帮助管理状态（state），�
 
     <span class="post-tags">
       <i class="icon-tags"></i>
-        <a href="/tags/JS/">JS</a><a href="/tags/react/">react</a>
+        <a href="/tags/react/">react</a><a href="/tags/JS/">JS</a>
     </span>
     
 

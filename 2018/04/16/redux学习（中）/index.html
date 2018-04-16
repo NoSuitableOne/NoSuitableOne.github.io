@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>redux学习（中） | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="依照惯例，开头先放出redux中文文档地址
+前文讲了redux的基础概念，这次学习一下redux和react的结合使用
+React-Redux说到redux在react中的使用，肯定绕不开react-redux这个库。首先声明，在react中使用redux并非一定要用react-redux，同样的r">
+  
+
+  
+  
+  <meta name="keywords" content="react,JS">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="redux学习（中）"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>redux学习（中）</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/04/16/redux学习（中）/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-04-16T06:39:50.000Z">
+          2018-04-16
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><em>依照惯例，开头先放出<a href="http://cn.redux.js.org/index.html" target="_blank" rel="noopener">redux中文文档地址</a></em></p>
+<p>前文讲了<code>redux</code>的基础概念，这次学习一下<code>redux</code>和<code>react</code>的结合使用</p>
+<h1 id="React-Redux"><a href="#React-Redux" class="headerlink" title="React-Redux"></a><a href="https://github.com/reactjs/react-redux" target="_blank" rel="noopener">React-Redux</a></h1><p>说到<code>redux</code>在<code>react</code>中的使用，肯定绕不开<code>react-redux</code>这个库。首先声明，在<code>react</code>中使用<code>redux</code>并非一定要用<code>react-redux</code>，同样的<code>redux</code>也不是只能为<code>react</code>服务，它同样也支持<code>vue</code>、<code>Angular</code>、纯<code>JS</code>等等。这里使用<code>react-redux</code>更多的是考虑这已经算<code>react</code>生态圈的最佳实践了。</p>
+<h2 id="connect"><a href="#connect" class="headerlink" title="connect()"></a><code>connect()</code></h2><p><code>react-redux</code>提供了<code>connect()</code>方法。<br>连接 <code>React 组件</code>与 <code>Redux store</code>。<br>连接操作不会改变原来的组件，<strong>返回一个新的已与<code>Redux store</code>连接的组件</strong>。<br>调用方法： <code>connect([mapStateToProps], [mapDispatchToProps], [mergeProps],[options])</code><br>  讲解一下参数，基本都是顾名思义：<br>  <code>[mapStateToProps(state, {ownProps})](Function): 一个函数，返回一个对象，把store中的state传到UI组件上，也可以把容器组件自己的props传递过去</code><br>  <code>[mapDispatchToProps(dispatch, {ownProps}): dispatchProps)](Object or Function): 一个函数或对象，定义UI组件上的props和需要触发的Action之间的映射关系</code></p>
+<h2 id="lt-Provider-gt-标签"><a href="#lt-Provider-gt-标签" class="headerlink" title="&lt;Provider&gt;标签"></a><code>&lt;Provider&gt;标签</code></h2><p>定义完<code>connect()</code>方法，想要生成<code>容器组件</code>还需把<code>state</code>传递给<code>容器组件</code>(回顾一下上面的逻辑，<code>UI组件</code>是我们自定义的，通过<code>react-redux</code>提供的<code>connect()</code>方法，我们已经把<code>store</code>中的<code>state</code>传给了<code>UI组件</code>的<code>props</code>，<code>UI组件</code>中需要触发<code>store</code>中<code>state</code>变化的<code>Action</code>函数也已经传入，但是我们只建立了这种连接关系，<code>容器组件</code>的<code>state</code>还没有定义)。<code>&lt;Provider&gt;</code>标签作用就是通过<code>react</code>组件的<code>context</code>把<code>store</code>中的<code>state</code>直接传入。<br> 例子：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">        &lt;MyRootComponent /&gt;</span><br><span class="line">    &lt;/Provider&gt;,</span><br><span class="line">rootElement</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>至此，如果不考虑异步场景，我们应该已经可以在<code>react</code>项目中使用<code>redux</code>了<br>下面在<code>create-react-app</code>脚手架上开始写一个简单的小例子：</p>
+<ul>
+<li>初始化一个<code>react</code>项目，原始项目应该包含一个app首页<br><img src="https://upload-images.jianshu.io/upload_images/1915742-3a73877052e06f4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="react-app"></li>
+<li>在此项目基础上安装<code>redux</code>/<code>react-redux</code>/<code>react-router</code>等包</li>
+<li>创建state相关目录（此处<code>sagas</code>非必要，仅在后文处理异步场景示例中使用到）<br><img src="https://upload-images.jianshu.io/upload_images/1915742-d5580460d82132f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+<li><p>在<code>actions</code>中创建<code>action</code><br>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function mark(&#123; payload: id &#125;) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        type: &apos;MARK ITEM&apos;,</span><br><span class="line">        payload: id</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>reducers</code>中创建<code>reduce</code><br>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const initialUi = &#123;</span><br><span class="line">    backgroundColor: false</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function markItem (state = initialUi, action) &#123;</span><br><span class="line">      let backgroundColor = state.backgroundColor;</span><br><span class="line"></span><br><span class="line">      if (action.type === &apos;MARK ITEM&apos;) &#123;</span><br><span class="line">          backgroundColor = !backgroundColor;</span><br><span class="line">          return backgroundColor;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return backgroundColor;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function ui (state = initialUi, action) &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">          backgroundColor: markItem(state, action)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">export default ui;</span><br></pre></td></tr></table></figure>
+<p> 合并<code>reducer</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; combineReducers &#125; from &apos;redux&apos;;  </span><br><span class="line"></span><br><span class="line">const reducer = combineReducers(&#123;</span><br><span class="line">    ui</span><br><span class="line">&#125;); </span><br><span class="line"></span><br><span class="line">export default reducer;</span><br></pre></td></tr></table></figure>
+<p>在<code>store</code>中创建<code>store</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createStore, applyMiddleware &#125; from &apos;redux&apos;;</span><br><span class="line"></span><br><span class="line">const store = createStore(</span><br><span class="line">    reducer</span><br><span class="line">); </span><br><span class="line"></span><br><span class="line">export default store;</span><br></pre></td></tr></table></figure>
+<p>在<code>container</code>组件中把组件属性和<code>store</code>相连</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &apos;react&apos;;</span><br><span class="line">import &#123; connect &#125; from &apos;react-redux&apos;;</span><br><span class="line">import &#123; mark &#125; from &apos;../state/actions/ui&apos;;</span><br><span class="line"></span><br><span class="line">class example extends Component &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render () &#123;</span><br><span class="line">        console.log(this.props)</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &#123; this.props.ui.backgroundColor &#125;</span><br><span class="line">                &lt;ul&gt;</span><br><span class="line">                  &lt;li key=&#123;0&#125; onClick=&#123;() =&gt; this.props.markItem(0)&#125;&gt;0&lt;/li&gt;</span><br><span class="line">                  &lt;li key=&#123;1&#125; onClick=&#123;() =&gt; this.props.markItem(1)&#125;&gt;1&lt;/li&gt;</span><br><span class="line">                  &lt;li key=&#123;2&#125; onClick=&#123;() =&gt; this.props.markItem(2)&#125;&gt;2&lt;/li&gt;</span><br><span class="line">              &lt;/ul&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const mapStateToProps = (state) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        ui: state.ui</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const mapDispatchToProps = (dispatch) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        markItem: id =&gt; &#123;</span><br><span class="line">            dispatch(mark(&#123; payload: id &#125;));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const Example = connect(</span><br><span class="line">    mapStateToProps,</span><br><span class="line">    mapDispatchToProps</span><br><span class="line">)(example);</span><br></pre></td></tr></table></figure>
+<p>在<code>App</code>中添加组件，同时引入<code>react-router</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class App extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">          &lt;div&gt;</span><br><span class="line">            &lt;header className=&quot;App-header&quot;&gt;</span><br><span class="line">              &lt;img src=&#123;logo&#125; className=&quot;App-logo&quot; alt=&quot;logo&quot; /&gt;</span><br><span class="line">              &lt;h1 className=&quot;App-title&quot;&gt;Welcome to React&lt;/h1&gt;</span><br><span class="line">            &lt;/header&gt;</span><br><span class="line">            &lt;Router&gt;</span><br><span class="line">                ...</span><br><span class="line">                &lt;Route path=&quot;/example&quot; component=&#123;Example&#125;/&gt;</span><br><span class="line">              &lt;/div&gt;</span><br><span class="line">            &lt;/Router&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>index.js</code>中通过<code>&lt;Provider&gt;</code>组件传入<code>store</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">import &#123; Provider &#125; from &apos;react-redux&apos;;</span><br><span class="line">import store from &apos;./state/store/store&apos;;</span><br><span class="line">import App from &apos;./App&apos;;</span><br><span class="line">... </span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Provider store=&#123; store &#125;&gt;</span><br><span class="line">      &lt;App /&gt;</span><br><span class="line">  &lt;/Provider&gt;,</span><br><span class="line">  document.getElementById(&apos;root&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1915742-e642ba7e11167dab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="初始状态.png"><br><img src="https://upload-images.jianshu.io/upload_images/1915742-c3f0e0ca59afd4b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点一下状态发生改变.png"><br>（<em>这里介绍一个调试<code>redux</code>的小工具<a href="https://www.npmjs.com/package/redux-devtools" target="_blank" rel="noopener">Redux DevTools</a>，是一个中间件，使用方式可以自己看链接</em>）</p>
+</li>
+</ul>
+<p>这就完成了把目前所有<code>redux</code>和<code>react</code>相关内容串联起来的小例子</p>
+<p>（未完待续。。。）</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/前端框架/">前端框架</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/react/">react</a><a href="/tags/JS/">JS</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

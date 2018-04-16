@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>redux学习（下） | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="依照惯例，开头先放出redux中文文档地址
+异步场景的基本思路之前讨论的所有场景都是同步场景，实际开发中肯定有很多异步场景，下面讨论一下异步场景的问题。首先，异步场景和同步场景本质上还是利用action、reducer、store这些东西，只是设计reducer和action的时候更加巧妙，考虑到了">
+  
+
+  
+  
+  <meta name="keywords" content="react,JS">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="redux学习（下）"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>redux学习（下）</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/04/12/redux学习（下）/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-04-12T14:38:24.000Z">
+          2018-04-12
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><em>依照惯例，开头先放出<a href="http://cn.redux.js.org/index.html" target="_blank" rel="noopener">redux中文文档地址</a></em></p>
+<h2 id="异步场景的基本思路"><a href="#异步场景的基本思路" class="headerlink" title="异步场景的基本思路"></a>异步场景的基本思路</h2><p>之前讨论的所有场景都是同步场景，实际开发中肯定有很多异步场景，下面讨论一下异步场景的问题。<br>首先，异步场景和同步场景本质上还是利用<code>action</code>、<code>reducer</code>、<code>store</code>这些东西，只是设计<code>reducer</code>和<code>action</code>的时候更加巧妙，考虑到了异步状态。<br>对应不同的<code>action</code>，在<code>reducer</code>中添加专门表现异步状态的内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function post(</span><br><span class="line">  state = &#123;</span><br><span class="line">    isFetching: false,</span><br><span class="line">    items: []</span><br><span class="line">  &#125;,</span><br><span class="line">  action</span><br><span class="line">) &#123;</span><br><span class="line">  switch(action.type) &#123;</span><br><span class="line">    case REQUEST:</span><br><span class="line">      return  Object.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        isFetching: true,</span><br><span class="line">      &#125;)</span><br><span class="line">    case RECEIVE:</span><br><span class="line">      return Object.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        isFetching: false,</span><br><span class="line">        items: action.posts</span><br><span class="line">      &#125;)</span><br><span class="line">    default:</span><br><span class="line">      return state </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>搞定了<code>reducer</code>还要考虑异步场景的<code>action</code>，我们先不仔细探究代码实现，只要想明白如果<code>store.dispatch(someAction)</code>，然后按照异步回调的顺序触发上面的<code>reducer</code>，那么异步场景就实现了。</p>
+<h1 id="解决异步场景"><a href="#解决异步场景" class="headerlink" title="解决异步场景"></a>解决异步场景</h1><p>上面我们笼统地讲了异步场景的实现思路，目前看来<code>reducer</code>部分已经没有大问题和同步场景十分类似，<code>action</code>部分和同步场景有所区别。<br>简单思考可以发现，我们需要在<code>action creator</code>函数中实现异步，即当我们调用一个<code>action creator</code>时，不是简单需要返回一个<code>action</code>对象，而是根据异步的场景返回不同的<code>action</code>。看起来我们需要改造<code>action</code>。<br>理解了这个问题，就找到了异步场景的症结。<br><code>redux</code>有许多配套的中间件（<code>middleware</code>），关于中间件的概念可以查看上面的文档，我们不仔细讨论。简要地说，中间件在调用<code>action creator</code>后起作用，可以有多个中间件存在，数据流会在中间件之间传递，数据流经过所有中间件处理流出时应该还是一个简单的<code>action</code>对象，到达<code>store.dispatch(action)</code>时所有内容应该和同步数据流一致。</p>
+<h1 id="redux-thunk-实现"><a href="#redux-thunk-实现" class="headerlink" title="redux-thunk 实现"></a>redux-thunk 实现</h1><p><code>redux-thunk</code>改造了<code>store.dispatch</code>，使<code>action creator</code>能接收一个函数作为参数。改造完<code>action creator</code>之后，就可以创造一个内部根据状态再次异步操作的<code>action</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const fetchPosts = postTitle =&gt; (dispatch, getState) =&gt; &#123;</span><br><span class="line">  dispatch(requestPosts(postTitle));</span><br><span class="line">  return fetch(`/some/API/$&#123;postTitle&#125;.json`)</span><br><span class="line">    .then(response =&gt; response.json())</span><br><span class="line">    .then(json =&gt; dispatch(receivePosts(postTitle, json)));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>结合一个小例子来看一下<br>已有一个<code>container</code>组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">class example extends Component &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        组件需要调用后端API载入数据</span><br><span class="line">        this.props.getName();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render () &#123;</span><br><span class="line">        console.log(this.props)</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                // 组件按照不同状态显示‘querying...’/正常数据</span><br><span class="line">                &#123; this.props.info.server.isFetching ?</span><br><span class="line">                    (</span><br><span class="line">                        &lt;span&gt;</span><br><span class="line">                            querying...</span><br><span class="line">                        &lt;/span&gt;</span><br><span class="line">                    )</span><br><span class="line">                    :</span><br><span class="line">                    (</span><br><span class="line">                        // 点击请求API刷新状态</span><br><span class="line">                        &lt;span onClick=&#123;() =&gt; this.props.getName()&#125;&gt;</span><br><span class="line">                            &#123; this.props.info.server.name &#125;</span><br><span class="line">                        &lt;/span&gt;</span><br><span class="line">                    )</span><br><span class="line">                &#125;</span><br><span class="line">                ...</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const mapStateToProps = (state) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        info: state.info</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const mapDispatchToProps = (dispatch) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        getName: () =&gt; &#123;</span><br><span class="line">            dispatch(getServerInfo());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const Example = connect(</span><br><span class="line">    mapStateToProps,</span><br><span class="line">    mapDispatchToProps</span><br><span class="line">)(example);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export default Example;</span><br></pre></td></tr></table></figure></p>
+<p>下面开始实现这个小功能</p>
+<p>编写对应的<code>action</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function fetchServerInfo() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        type: &apos;GET SERVER INFO&apos;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function receiveServerInfo(&#123; payload: server &#125;) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        type: &apos;RECEIVE SERVER INFO&apos;,</span><br><span class="line">        payload: server</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 这是一个改造后的action creator，可以异步dispatch(action)</span><br><span class="line">function getServerInfo() &#123;</span><br><span class="line">    return (dispatch, getState) =&gt; &#123;</span><br><span class="line">        dispatch(fetchServerInfo());</span><br><span class="line">        return fetch(`http://server/info`)</span><br><span class="line">            .then(</span><br><span class="line">                response =&gt; response.json(),</span><br><span class="line">                error =&gt; console.log(&apos;an error&apos;, error)</span><br><span class="line">            )</span><br><span class="line">            .then(</span><br><span class="line">                (json) =&gt; &#123;</span><br><span class="line">                    let &#123; server &#125; = json;</span><br><span class="line">                    dispatch(receiveServerInfo(&#123; payload: server &#125;));</span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编写<code>reducer</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">// 加入一个isFetching的状态标志位</span><br><span class="line">const initialInfo = &#123;</span><br><span class="line">    server: &#123;</span><br><span class="line">        isFetching: false,</span><br><span class="line">        name: &apos;localhost&apos;,</span><br><span class="line">        status: &apos;&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function setServerName (state = initialInfo, action) &#123;</span><br><span class="line">    let server = state.server;</span><br><span class="line"></span><br><span class="line">    switch (action.type) &#123;</span><br><span class="line">        case &apos;GET SERVER INFO&apos;:</span><br><span class="line">            return Object.assign(</span><br><span class="line">                &#123;&#125;,</span><br><span class="line">                server,</span><br><span class="line">                &#123;</span><br><span class="line">                    isFetching: true</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">        case &apos;RECEIVE SERVER INFO&apos;:</span><br><span class="line">            let &#123; payload: &#123; name &#125; &#125; = action;</span><br><span class="line">            return Object.assign(</span><br><span class="line">                &#123;&#125;,</span><br><span class="line">                server,</span><br><span class="line">                &#123;</span><br><span class="line">                    isFetching: false,</span><br><span class="line">                    name</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">        default:</span><br><span class="line">            return server</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function info (state = initialInfo, action) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        server: setServerName(state.title, action)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default info;</span><br></pre></td></tr></table></figure></p>
+<p>添加<code>middleware</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createStore, applyMiddleware &#125; from &apos;redux&apos;;</span><br><span class="line">import thunkMiddleWare from &apos;redux-thunk&apos;;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">const store = createStore(</span><br><span class="line">    reducer,</span><br><span class="line">    applyMiddleware(</span><br><span class="line">        thunkMiddleWare</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<h1 id="redux-saga-实现"><a href="#redux-saga-实现" class="headerlink" title="redux-saga 实现"></a>redux-saga 实现</h1><p><code>redux-saga</code>是一种不一样的实现方式，它没有在<code>action creator</code>上做文章，它监听了<code>action</code>，如果<code>action</code>中有<code>effect</code>，那么它可以调用<code>Genertor</code>函数实现异步。<br>还是结合上面的小例子来看一下：<br>已有一个<code>container</code>组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">class example extends Component &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        组件需要调用后端API载入数据</span><br><span class="line">        this.props.getName();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render () &#123;</span><br><span class="line">        console.log(this.props)</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                // 组件按照不同状态显示‘querying...’/正常数据</span><br><span class="line">                &#123; this.props.info.server.isFetching ?</span><br><span class="line">                    (</span><br><span class="line">                        &lt;span&gt;</span><br><span class="line">                            querying...</span><br><span class="line">                        &lt;/span&gt;</span><br><span class="line">                    )</span><br><span class="line">                    :</span><br><span class="line">                    (</span><br><span class="line">                        // 点击请求API刷新状态</span><br><span class="line">                        &lt;span onClick=&#123;() =&gt; this.props.getName()&#125;&gt;</span><br><span class="line">                            &#123; this.props.info.server.name &#125;</span><br><span class="line">                        &lt;/span&gt;</span><br><span class="line">                    )</span><br><span class="line">                &#125;</span><br><span class="line">                ...</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const mapStateToProps = (state) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        info: state.info</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const mapDispatchToProps = (dispatch) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        getName: () =&gt; &#123;</span><br><span class="line">            dispatch(getServerInfo());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const Example = connect(</span><br><span class="line">    mapStateToProps,</span><br><span class="line">    mapDispatchToProps</span><br><span class="line">)(example);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export default Example;</span><br></pre></td></tr></table></figure></p>
+<p>创建一个<code>saga</code>文件监听<code>action</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import &#123; takeEvery &#125; from &apos;redux-saga&apos;;</span><br><span class="line">import &#123; call, put &#125; from &apos;redux-saga/effects&apos;;</span><br><span class="line">import requestServerInfo from &apos;../../services/info&apos;</span><br><span class="line"></span><br><span class="line">// 遇到被监听的action会调用下面的函数，并将异步操作分解</span><br><span class="line">function* getServerInfo() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        yield put(&#123; type: &apos;GET SERVER INFO&apos; &#125;);</span><br><span class="line">        const &#123; data: &#123; server: server &#125; &#125; = yield call(requestServerInfo, &apos;http://server/test&apos;);</span><br><span class="line">        yield put(&#123; type: &apos;RECEIVE SERVER INFO&apos;, payload: &#123; server &#125; &#125;);</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">        yield put(&#123; type: &apos;RECEIVE AN ERROR&apos; &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 在此处使用takeEvery监听action</span><br><span class="line">function* infoSaga() &#123;</span><br><span class="line">    yield* takeEvery(&apos;QUERY_INFO&apos;, getServerInfo);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export &#123; infoSaga &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在<code>store</code>中应用<code>saga</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createStore, applyMiddleware &#125; from &apos;redux&apos;;</span><br><span class="line">import createSagaMiddleware from &apos;redux-saga&apos;;</span><br><span class="line">import &#123; infoSaga &#125; from &apos;../sagas/info&apos;;</span><br><span class="line">import reducer from &apos;../reducers/all&apos;;</span><br><span class="line"></span><br><span class="line">// 引入redux-saga中间件</span><br><span class="line">const sagaMiddleware = createSagaMiddleware();</span><br><span class="line">const store = createStore(</span><br><span class="line">    reducer,</span><br><span class="line">    applyMiddleware(</span><br><span class="line">        sagaMiddleware</span><br><span class="line">    )</span><br><span class="line">);</span><br><span class="line">sagaMiddleware.run(infoSaga);</span><br><span class="line"></span><br><span class="line">export default store;</span><br></pre></td></tr></table></figure></p>
+<p>剩下<code>reducer</code>部分和上面一样处理加入<code>isFetching</code>标志位即可，没有变化</p>
+<p>参考：<br><a href="http://www.redux.org.cn/" target="_blank" rel="noopener">Redux 中文文档</a><br><a href="https://redux-saga-in-chinese.js.org/index.html" target="_blank" rel="noopener">Redux-Saga 中文文档</a><br><a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html" target="_blank" rel="noopener">阮一峰 Redux 入门教程（二）：中间件与异步操作</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/前端框架/">前端框架</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/react/">react</a><a href="/tags/JS/">JS</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

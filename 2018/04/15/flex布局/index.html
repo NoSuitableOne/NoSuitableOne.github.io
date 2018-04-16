@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>flex布局 | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="flex布局已经是前端中常用的一种布局方式了，目前现代浏览器的支持也不错（IE较差）下面就一起学习一下flex布局。在做试验之前先看一个先导概念：
+
+Flex布局外层父容器称为Flex容器（flex container），简称”容器”
+它的所有子元素自动成为容器成员，称为Flex项目（flex it">
+  
+
+  
+  
+  <meta name="keywords" content="css">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="flex布局"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>flex布局</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/04/15/flex布局/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-04-15T08:57:42.000Z">
+          2018-04-15
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>flex布局已经是前端中常用的一种布局方式了，目前现代浏览器的支持也不错（IE较差）<br><img src="https://upload-images.jianshu.io/upload_images/1915742-6738106c92ef2408.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各浏览器支持程度.png"><br>下面就一起学习一下<code>flex</code>布局。<br>在做试验之前先看一个先导概念：</p>
+<ul>
+<li>Flex布局外层父容器称为Flex容器（flex container），简称”容器”</li>
+<li>它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。</li>
+<li>子元素在父元素的主轴上排列，主轴为父元素的横向或纵向，可以自己定义<br>示意图（来源：<a href="http://www.runoob.com/w3cnote/flex-grammar.html）：" target="_blank" rel="noopener">http://www.runoob.com/w3cnote/flex-grammar.html）：</a><br><img src="https://upload-images.jianshu.io/upload_images/1915742-51fbb9a36f27a4bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="flex布局概念.png"></li>
+</ul>
+<p>理解完上面的概念后，我们通过在一个容器中试验相关属性来掌握flex布局<br>先画一个大框作为容器<br><img src="https://upload-images.jianshu.io/upload_images/1915742-d4be4b8a5b236585.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="原始图.png"><br>接下来就在这个容器里各种试验</p>
+<ol>
+<li>先给大容器增加一个<code>display: flex;</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;1&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;2&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;3&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#container &#123;</span><br><span class="line">    width: 1000px;</span><br><span class="line">    height: 600px;</span><br><span class="line">    border: 1px solid crimson;</span><br><span class="line">    margin-left: 100px;</span><br><span class="line">    display: flex;  </span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background-color: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1915742-d8b30aa25a75b49b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加display:flex属性.png"><br>目前一切正常<br>接下来给容器添加一些属性</p>
+<ol>
+<li><code>flex-direction</code></li>
+</ol>
+<ul>
+<li><code>flex-direction: row</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-d8b30aa25a75b49b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加flex-direction属性.png"></li>
+<li><code>flex-direction: row-reverse</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-464b6e40b69a5b09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加flex-direction: row-reverse属性.png"></li>
+<li><code>flex-direction: column</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-b75aeb55335f73de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加flex-direction: column属性.png"> </li>
+<li><code>flex-direction: column-reverse</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-26c896f3fe9f438b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加flex-direction: column-reverse属性.png"></li>
+</ul>
+<ol>
+<li><code>flex-wrap</code></li>
+</ol>
+<ul>
+<li><p><code>flex-wrap: nowrap</code><br>这样会强制不换行，每个子元素会被压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#container &#123;</span><br><span class="line">  width: 1000px;</span><br><span class="line">  height: 600px;</span><br><span class="line">  border: 1px solid crimson;</span><br><span class="line">  margin-left: 100px;</span><br><span class="line">  display: flex;</span><br><span class="line">  flex-wrap: nowrap;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">  height: 100px;</span><br><span class="line">  background-color: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1915742-b822223e93f96500.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加flex-wrap: nowrap属性.png"></p>
+</li>
+<li><code>flex-wrap: wrap</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-4c00213ca84548f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加flex-wrap: wrap属性.png"></li>
+</ul>
+<ol>
+<li><code>justify-content</code><br>搞明白子元素的排序，接下来看怎么控制每个子元素的对齐情况</li>
+</ol>
+<ul>
+<li><code>justify-content: flex-start</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-93e68e313931b608.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加justify-content: flex-start属性.png"></li>
+<li><code>justify-content: flex-end</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-ae6ea62ee2823cfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加justify-content: flex-end属性.png"></li>
+<li><code>justify-content: space-around</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-6e9e3be23dadeb8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加justify-content: space-around属性.png"></li>
+<li><code>justify-content: space-between</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-9ed01bcc0afc886d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加justify-content: space-between属性.png"></li>
+</ul>
+<ol>
+<li><code>align-items</code></li>
+</ol>
+<ul>
+<li><code>align-items: center</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-87a346f37ecab961.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加align-items: center属性.png"></li>
+<li><code>align-items: flex-end</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-d4071a2ee03c7b65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加align-items: flex-end属性.png"></li>
+</ul>
+<ol>
+<li><code>align-content</code><br>除了控制单个子元素的相对位置，所有轴线的相对位置也可控</li>
+</ol>
+<ul>
+<li><code>align-content: flex-end</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-38db388b3588c4c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加align-content: flex-end属性.png"></li>
+<li><code>align-content: center</code><br><img src="https://upload-images.jianshu.io/upload_images/1915742-f08fde9c11b862f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="容器添加align-content: center属性.png"><br>容器属性说完了，再来研究一下元素属性   </li>
+</ul>
+<ol>
+<li><p><code>order</code><br><code>order</code>控制子元素的优先级</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#box1 &#123;</span><br><span class="line">  order: 100;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1915742-cc10b3782f1808f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="子元素添加order属性.png"></p>
+</li>
+<li><p><code>flex-grow</code>/<code>flex-shrink</code><br><code>flex-grow</code>/<code>flex-shrink</code>控制子元素的大小，在<strong>空间足够的情况下</strong>会按数字比例扩大/缩小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#box1 &#123;</span><br><span class="line">  flex-grow: 2;</span><br><span class="line">  background-color: coral;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1915742-81ca0da94f3eeecb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="子元素添加flex-grow属性.png"></p>
+</li>
+<li><p><code>flex-basis</code><br><code>flex-basis</code>控制单个子元素在主轴占据空间的大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">  height: 100px;</span><br><span class="line">  background-color: yellow;</span><br><span class="line">&#125;</span><br><span class="line">#box1 &#123;</span><br><span class="line">  flex-basis: 100px;</span><br><span class="line">  background-color: coral;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1915742-3a23a6903e6bafb6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="子元素添加flex-basis属性.png"></p>
+</li>
+<li><code>align-self</code><br><code>align-self</code>可以控制单个子元素在主轴上的对齐位置<br><img src="https://upload-images.jianshu.io/upload_images/1915742-58e93b6f72651064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="子元素添加align-self: flex-end属性.png"><br><img src="https://upload-images.jianshu.io/upload_images/1915742-3a82814581ab54fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="子元素添加align-self: center属性.png"></li>
+</ol>
+<p>至此，flex布局就全部介绍完了，完全理解这些属性后灵活搭配它们就可以在页面布局中使用啦。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/css/">css</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

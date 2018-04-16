@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>react-router学习 | NoSuitableOne&#39;s blog | more than coding</title>
+
+  
+  <meta name="author" content="NoSuitableOne">
+  
+
+  
+  <meta name="description" content="一个spa应用，前端页面切换一般都由前端路由实现，react生态圈中做这个工作的就是react-router了。react-router文档地址
+这里主要讨论一下react-router4的基本用法
+step1 安装：安装步骤就略过不表了，查看文档，装好对应的包即可
+step2 第一个例子：假设目前">
+  
+
+  
+  
+  <meta name="keywords" content="react,JS">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="react-router学习"/>
+
+  <meta property="og:site_name" content="NoSuitableOne&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="NoSuitableOne&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">NoSuitableOne&#39;s blog</a>
+    </h1>
+    <p class="site-description">more than coding</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">系列</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>react-router学习</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/04/11/react-router学习/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-04-11T07:55:18.000Z">
+          2018-04-11
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>一个<code>spa</code>应用，前端页面切换一般都由前端路由实现，<code>react</code>生态圈中做这个工作的就是<code>react-router</code>了。<br><em><a href="http://618cj.com/react-router4-0%E8%B7%AF%E7%94%B1%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3api/" target="_blank" rel="noopener"><code>react-router</code>文档地址</a></em></p>
+<p>这里主要讨论一下<code>react-router4</code>的基本用法</p>
+<h1 id="step1-安装："><a href="#step1-安装：" class="headerlink" title="step1 安装："></a>step1 安装：</h1><p>安装步骤就略过不表了，查看文档，装好对应的包即可</p>
+<h1 id="step2-第一个例子："><a href="#step2-第一个例子：" class="headerlink" title="step2 第一个例子："></a>step2 第一个例子：</h1><p>假设目前已经准备好了两个<code>page</code>组件，需要通过修改<code>url</code>展示不同页面，可以参照下面的小例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    BrowserRouter as Router,</span><br><span class="line">    Route,</span><br><span class="line">    Link</span><br><span class="line">&#125; from &apos;react-router-dom&apos;;</span><br><span class="line"></span><br><span class="line">class App extends Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;Router&gt;</span><br><span class="line">          &lt;div&gt; </span><br><span class="line">            &lt;ul&gt;</span><br><span class="line">              &lt;li&gt;&lt;Link to=&quot;/&quot;&gt;a&lt;/Link&gt;&lt;/li&gt;</span><br><span class="line">              &lt;li&gt;&lt;Link to=&quot;/pathb&quot;&gt;b&lt;/Link&gt;&lt;/li&gt;</span><br><span class="line">            &lt;/ul&gt;</span><br><span class="line">          &lt;hr/&gt;</span><br><span class="line">            &lt;Route exact path=&quot;/&quot; component=&#123;A&#125;/&gt;</span><br><span class="line">            &lt;Route path=&quot;/pathb&quot; component=&#123;B&#125;/&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        &lt;/Router&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>解释一下，引入<code>react-router-dom</code>，选择一种<code>&lt;Router&gt;</code>作为外围的父元素，包含<code>&lt;Route&gt;</code>作为子元素，根据路由匹配展示组件<br>（注意点：<code>&lt;Router&gt;</code>元素中的<code>&lt;Route&gt;</code>必须被包裹在一个元素中，要不然会报<code>Uncaught Error: A &lt;Router&gt; may have only one child element</code>错）</p>
+<p>再看一个使用参数的简单例子<br>上文说到<code>path</code>匹配全部都是写入固定路由对应展示页面，但有时候我们希望灵活一点，路由最好可以根据接受参数自适应<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;/:id&quot; component=&#123;comp&#125;/&gt;</span><br><span class="line"></span><br><span class="line">const comp = (&#123;id&#125;) =&gt; &#123;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    ...</span><br><span class="line">    &#123;id&#125;</span><br><span class="line">    ...</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="step3-深入："><a href="#step3-深入：" class="headerlink" title="step3 深入："></a>step3 深入：</h1><p>单页应用使用的是改变url匹配不同的视图，主要有两种不同的url：<code>&lt;BrowserRouter&gt;</code>/<code>&lt;HashRouter&gt;</code><br><code>&lt;BrowserRouter&gt;</code>是使用了<code>html5</code>中的<code>history</code> API，如果使用<code>url#hash</code>模式，则对应<code>&lt;HashRouter&gt;</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;BrowserRouter</span><br><span class="line">  basename=&#123;optionalString&#125;</span><br><span class="line">  forceRefresh=&#123;optionalBool&#125;</span><br><span class="line">  getUserConfirmation=&#123;optionalFunc&#125;</span><br><span class="line">  keyLength=&#123;optionalNumber&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>basename</code>：<code>string</code>，设置根目录<br><code>forceRefresh</code>：<code>boolean</code>，如果设置为true，那url改变浏览器会强制刷新，一般只在浏览器<code>history</code> API不兼容的时候启用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const supportHistory = &apos;pushState&apos; in window.history</span><br><span class="line">&lt;BrowserRouter forceRefresh=&#123;optionalBool&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>getUserConfirmation</code>：<code>func</code>，设置跳转的时候用户确认函数，默认是<code>window.confirm</code><br><code>keyLength</code>：<code>number</code>，默认长度是6</p>
+<p><code>&lt;HashRouter&gt;</code>，API和<code>&lt;BrowserRouter&gt;</code>几乎一样，独特API:<br><code>hashType</code> ：<code>string[&quot;slash&quot; | &quot;noslash&quot; | &quot;hashbang&quot;]</code>，定义url不同的hash类型</p>
+<p><code>&lt;Router&gt;</code>也是起同样作用的API，这个API属于低阶router，还需要通过<code>history</code>属性设置路由</p>
+<p>选定完如何通过url实现单页应用（web开发推荐h5的<code>history</code> API），就要想办法把url和组件对应起来，相关的API是<code>&lt;Route&gt;</code><br><code>&lt;Route&gt;</code>是所有API中最核心的API，一共有三种用法</p>
+<ul>
+<li><code>&lt;Route component&gt;</code></li>
+<li><code>&lt;Route render&gt;</code></li>
+<li><code>&lt;Route children&gt;</code><br><code>&lt;Route component&gt;</code>相当于下面这个例子中，当路径匹配成功时，调用<code>React.createElement</code>渲染<code>comp</code>组件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;/path&quot; component=&#123;comp&#125;/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>&lt;Route render&gt;</code>的最佳场景是使用<code>inline rendering</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;/home&quot; render=&#123;() =&gt; &lt;div&gt;Home&lt;/div&gt;&#125;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>&lt;Route children&gt;</code>利用了<code>children</code>属性，适合场景同<code>&lt;Route render&gt;</code>，稍有不同的是<code>children</code>函数接收一个方法，在这个方法中可以做路由匹配判断，无论路由是否匹配都会调用回调函数</p>
+<p><route>接收三个参数<br><code>path</code>: <code>string</code>，用于匹配路由，如果path为空，则无论如何都会匹配<br><code>exact</code>: <code>bool</code>，是否全目录匹配（目录完全匹配 or 父目录匹配即可）<br><code>strict</code>: <code>bool</code>，是否需要匹配后斜杠</route></p>
+<p>其他API<br><code>&lt;Redirect&gt;</code>：重定向，类似于服务端返回http状态码3xx。<br><code>&lt;Switch&gt;</code>：内含<code>&lt;Route&gt;</code>/<code>&lt;Redirect&gt;</code>元素，但是即使所有元素都和路径匹配也只渲染第一个匹配的元素。<br><code>&lt;Link&gt;</code>： 导航至其他URL<br><code>&lt;NavLink&gt;</code>： 同<code>&lt;Link&gt;</code>，多了接收<code>class</code>和<code>style</code>的属性<br><code>&lt;Prompt&gt;</code>：当触发某种情况时，弹出提示告知用户正离开页面，<code>when</code>属性就收一个布尔值，决定是否弹出提示。</p>
+<h1 id="step4-和redux的配合使用："><a href="#step4-和redux的配合使用：" class="headerlink" title="step4 和redux的配合使用："></a>step4 和<code>redux</code>的配合使用：</h1><p>在<code>React Router v4</code>中，<code>React Router Redux</code>包是<code>Router</code>项目中的一部分，简言之就是直接使用即可。<br>例如 在<code>index.js</code>中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">import store from &apos;./state/store/store&apos;;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Provider store=&#123; store &#125;&gt;</span><br><span class="line">        &lt;App /&gt;</span><br><span class="line">    &lt;/Provider&gt;,</span><br><span class="line">    document.getElementById(&apos;root&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>直接在<code>Provider</code>上传入<code>store</code>即可，与普通<code>react-redux</code>用法无异，在容器组件中可以配置相应的路由。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/react/">react</a><a href="/tags/JS/">JS</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    
+      &copy; 2018 <a href="https://nosuitableone.github.io/">NoSuitableOne</a>
+    
+    </br>
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
